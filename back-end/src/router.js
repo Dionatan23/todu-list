@@ -1,7 +1,13 @@
 const express = require('express');
+const tasksControlers = require('./controllers/tasksContrallers')
+const taskMDD = require('./middlewares/tasksMDD')
+
 const router = express.Router();
-// Rota GET responsavel por retornar as tasks do BD
-// router.get('/tasks', (req, res) => res.status(200).send("Router OK"))
+
+router.get('/tasks', tasksControlers.getAll);
+router.post('/tasks', taskMDD.validateTitle, tasksControlers.addTasks);
+router.delete('/tasks/:id', tasksControlers.deleteTask);
+router.put('/tasks/:id', taskMDD.validateTitle, taskMDD.validateStatus, tasksControlers.updateTask);
 
 
 module.exports = router;
